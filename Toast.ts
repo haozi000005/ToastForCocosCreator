@@ -24,7 +24,7 @@ export class Toast {
         this.toastObj.show();
     }
   
-    public static ShowText(text: string, duration: any): void {
+    public static ShowText(text: string, duration?: any): void {
         Toast.makeText(text, duration);
     }
 }
