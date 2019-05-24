@@ -4,8 +4,8 @@ export class ToastObject {
     text: string;
     duration: any = null;
     gravity: any = null;
-    x: number=0;
-    y: number=0;
+    x: number = 0;
+    y: number = 0;
 
     private bgSpriteFrame: cc.SpriteFrame = null;
 
@@ -32,7 +32,7 @@ export class ToastObject {
         var width = canvas.node.width;
         var height = canvas.node.height;
         //默认使用短时间提示
-        if (this.duration == null) {
+        if (this.duration == null || this.duration == undefined) {
             this.duration = Toast.LENGTH_SHORT;
         }
 
@@ -49,7 +49,7 @@ export class ToastObject {
         let textLabel = textNode.addComponent(cc.Label);
         textLabel.horizontalAlign = cc.Label.HorizontalAlign.CENTER;
         textLabel.verticalAlign = cc.Label.VerticalAlign.CENTER;
-        textLabel.fontSize = 20;
+        textLabel.fontSize = 24;
         textLabel.string = this.text;
 
         //背景图片和文本内容间距
@@ -107,28 +107,27 @@ export class ToastObject {
 
         let finished = cc.callFunc((target) => {
             bgNode.destroy();
-        }, self);
+        }, this);
         let action = cc.sequence(cc.moveBy(this.duration, cc.v2(0, 0)), cc.fadeOut(0.3), finished);
         bgNode.runAction(action);
 
     }
 
-    private loadBg(): void {
-        let self = this;
-        cc.loader.load({ 'uuid': 'b43ff3c2-02bb-4874-81f7-f2dea6970f18' },
+    private loadBg(): void {        
+        cc.loader.load({ 'uuid': 'b43ff3c2-02bb-4874-81f7-f2dea6970f18' },        
             function (error, result) {
                 if (error) {
                     console.error("error:" + error);
                     return;
                 }
 
-                self.bgSpriteFrame = new cc.SpriteFrame(result);
-                self.bgSpriteFrame.insetTop = 3;
-                self.bgSpriteFrame.insetBottom = 3;
-                self.bgSpriteFrame.insetLeft = 4;
-                self.bgSpriteFrame.insetRight = 4;
+                this.bgSpriteFrame = new cc.SpriteFrame(result);
+                this.bgSpriteFrame.insetTop = 3;
+                this.bgSpriteFrame.insetBottom = 3;
+                this.bgSpriteFrame.insetLeft = 4;
+                this.bgSpriteFrame.insetRight = 4;
                 //加载完成再调用
-                self.show();
-            })
+                this.show();
+            }.bind(this))
     }
 }
