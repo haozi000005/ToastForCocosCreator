@@ -1,22 +1,25 @@
-import { Toast } from "./Toast";
+import { Toast, Duration, Position } from "./Toast";
 
 export class ToastObject {
     text: string;
-    duration: any = null;
-    gravity: any = null;
+    duration: number = null;
+    position: Position = null;
     x: number = 0;
     y: number = 0;
 
     private bgSpriteFrame: cc.SpriteFrame = null;
 
 
-    constructor(_text: string, _duration: any) {
+    constructor(_text: string, _duration: number) {
         this.text = _text;
         this.duration = _duration;
     }
 
-    public setGravity(_gravity: any, _x: number, _y: number): void {
-        this.gravity = _gravity;
+    public setPosition(pos: Position, _x: number, _y: number): void {
+        if (pos == null || pos == undefined) {
+            pos = Position.BOTTOM;
+        }
+        this.position = pos;
         this.x = _x;
         this.y = _y;
     }
@@ -33,7 +36,7 @@ export class ToastObject {
         var height = canvas.node.height;
         //默认使用短时间提示
         if (this.duration == null || this.duration == undefined) {
-            this.duration = Toast.LENGTH_SHORT;
+            this.duration = Duration.SHORT;
         }
 
         //背景图片设置
@@ -73,27 +76,27 @@ export class ToastObject {
         }
 
         //根据gravity设置Toast显示位置
-        if (this.gravity == Toast.CENTER) {
+        if (this.position == Position.CENTER) {
             textNode.y = 0;
             textNode.x = 0;
-        } else if (this.gravity == Toast.TOP) {
+        } else if (this.position == Position.TOP) {
             textNode.y = textNode.y + (height / 5) * 2;
-        } else if (this.gravity == Toast.TOP_LEFT) {
+        } else if (this.position == Position.TOP_LEFT) {
             textNode.y = textNode.y + (height / 5) * 2;
             textNode.x = textNode.x + (width / 5);
-        } else if (this.gravity == Toast.LEFT) {
+        } else if (this.position == Position.LEFT) {
             textNode.x = textNode.x + (width / 5);
-        } else if (this.gravity == Toast.BOTTOM_LEFT) {
+        } else if (this.position == Position.BOTTOM_LEFT) {
             textNode.y = textNode.y - (height / 5) * 2;
             textNode.x = textNode.x + (width / 5);
-        } else if (this.gravity == Toast.BOTTOM) {
+        } else if (this.position == Position.BOTTOM) {
             textNode.y = textNode.y - (height / 5) * 2;
-        } else if (this.gravity == Toast.BOTTOM_RIGHT) {
+        } else if (this.position == Position.BOTTOM_RIGHT) {
             textNode.y = textNode.y - (height / 5) * 2;
             textNode.x = textNode.x - (width / 5);
-        } else if (this.gravity == Toast.RIGHT) {
+        } else if (this.position == Position.RIGHT) {
             textNode.x = textNode.x - (width / 5);
-        } else if (this.gravity == Toast.TOP_RIGHT) {
+        } else if (this.position == Position.TOP_RIGHT) {
             textNode.y = textNode.y + (height / 5) * 2;
             textNode.x = textNode.x - (width / 5);
         } else {
@@ -113,8 +116,8 @@ export class ToastObject {
 
     }
 
-    private loadBg(): void {        
-        cc.loader.load({ 'uuid': 'b43ff3c2-02bb-4874-81f7-f2dea6970f18' },        
+    private loadBg(): void {
+        cc.loader.load({ 'uuid': 'b43ff3c2-02bb-4874-81f7-f2dea6970f18' },
             function (error, result) {
                 if (error) {
                     console.error("error:" + error);

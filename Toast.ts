@@ -1,30 +1,33 @@
 import { ToastObject } from "./ToastObject";
 
+export class Duration {
+    public static LONG_LARGE: number = 4;
+    public static LONG: number = 2;
+    public static SHORT: number = 1.2;
+}
+export enum Position {
+    CENTER = 0,
+    TOP = 1,
+    TOP_LEFT = 2,
+    LEFT = 3,
+    BOTTOM_LEFT = 4,
+    BOTTOM = 5,
+    BOTTOM_RIGHT = 6,
+    RIGHT = 7,
+    TOP_RIGHT = 8
+}
+
 export class Toast {
-    public static LENGTH_LONG_LARGE: number = 4;
-    public static LENGTH_LONG: number = 2;
-    public static LENGTH_SHORT: number = 1.2;
-
-    public static CENTER: number = 0;
-    public static TOP: number = 1;
-    public static TOP_LEFT: number = 2;
-    public static LEFT: number = 3;
-    public static BOTTOM_LEFT: number = 4;
-    public static BOTTOM: number = 5;
-    public static BOTTOM_RIGHT: number = 6;
-    public static RIGHT: number = 7;
-    public static TOP_RIGHT: number = 8;
-
 
     private static toastObj: ToastObject = null;
 
-    static makeText(text: string, duration: any): void {        
+    private static makeText(text: string, duration?: number, pos?: Position): void {
         this.toastObj = new ToastObject(text, duration);
-        // this.toastObj.setGravity(Toast.BOTTOM,0,0);//可以自定义Toast的位置
+        this.toastObj.setPosition(pos, 0, 0);//可以自定义Toast的位置
         this.toastObj.show();
     }
-  
-    public static ShowText(text: string, duration?: any): void {
-        Toast.makeText(text, duration);
+
+    public static ShowText(text: string, duration?: number, pos?: Position): void {
+        Toast.makeText(text, duration, pos);
     }
 }
