@@ -27,6 +27,13 @@ export class Toast {
         this.toastObj.show();
     }
 
+    /**
+     * 
+     * @param text text you want to show
+     * @param duration how long will the text be shown in seconds.you can use Duration.LONG or such predefined times.
+     * you can also use a positive number as you like.
+     * @param pos the position to show text,default is bottom.
+     */
     public static ShowText(text: string, duration?: number, pos?: Position): void {
         Toast.makeText(text, duration, pos);
     }
