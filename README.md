@@ -1,3 +1,4 @@
+IDE version:v2.0.9
 ## Description
 This toast is inspired by [CocosCreator-Toast](https://github.com/jtly1985/CocosCreator-Toast),which is written in js.
 
